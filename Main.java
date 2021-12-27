@@ -165,108 +165,61 @@ public class Main
 	System.out.println ("NO HISTORY");
 	return;
       }
-
     while (tmp != null)
       {
-
 	System.out.println ("Name of customer: " + tmp.cnam);
-
 	System.out.println ("Searched product: " + tmp.spnam);
-
 	System.out.println ("bought product :" + tmp.pnam);
-
 	System.out.println ("No of product bought: " + tmp.no);
-
 	System.out.println ("---------------------------------");
-
 	tmp = tmp.next;
-
       }
 
   }
 
   static void update ()
   {
-
     System.out.println ("Enter product name.");
-
     String pnam = sc.next ();
-
     System.out.println ("Enter quanties.");
-
     int pnamber = sc.nextInt ();
-
     System.out.println ("Enter price in $.");
-
     int prc = sc.nextInt ();
-
     if (pnamber == 0)
       {
-
 	System.out.println ("Not updated");
 	return;
-
       }
 
-    ++updatecount;
+   ++updatecount;
 
 //updatecount++;
-
     Node temp = new Node (pnamber, pnam, prc);
-
     temp.next = head.next;
-
     head.next = temp;
-
     return;
-
   }
 
 }
 
-
-
-
-
 //this node may be inside main class 
-
 //or outside of main class
-
-
-
-
 
 class dnode
 {
-
-  String cnam, spnam, pnam;
-
+ String cnam, spnam, pnam;
   int no;
-
     dnode (String name, String prodnam, String buyprod, int no)
   {
-
     this.cnam = name;
-
     this.spnam = prodnam;
-
     this.pnam = buyprod;
-
     this.no = no;
-
   }
-
   dnode next;
-
 //pnam product name or buy product name
-
 //cname customer name
-
 //no of product buy or present
-
-
-
-
 
 }
 
@@ -311,12 +264,6 @@ class Node
     this.prc = prc;
 
   }
-
-
-
-
-
   Node next = null;
-
 }
 
