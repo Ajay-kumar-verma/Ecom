@@ -10,10 +10,9 @@ public class Ecom {
       try{  
 
       System.out.println("....... Menu ......"); 
-      System.out.println("1 : Order Product\t2 : Upadte item "); 
+      System.out.println("1 : Buy Product\t2 : Upadte item "); 
       System.out.println("3 : Add Item\t4 : Remove item ");
-      System.out.println("5 : history\t6 : No of customer"); 
-      System.out.println("7 : sort items ");
+      System.out.println("5 : history\t6 : sort items "); 
       System.out.print("Enter you choice : ");
       Scanner sc= new Scanner(System.in);
          
@@ -39,14 +38,9 @@ public class Ecom {
         break; 
 
         case 6:
-        Fun.Customer();
-        break; 
-        
-        case 7:
         Fun.sort();
         break; 
         
-
         default:
         System.out.println("`````````Invalid Choice `````````");
         break;
@@ -71,15 +65,8 @@ static Stack<Product> history=new Stack<Product>();
 // THIS IS FOR ORDER 
 static void  Order(){
   Iterator i= head.iterator();
-   if(!i.hasNext())
-   {
-     System.out.println("Stock Empty.....!");
-     return;
-   }
+   if(!i.hasNext()){System.out.println("Stock Empty.....!");return;}
 
-System.out.print("Enter your Name  : ");
-Scanner sc=new Scanner(System.in); 
-String name =sc.nextLine();
 System.out.println("\t\tName\tprice\tquantity"+"\t\t"+"Name\tprice\tquantity");
 while(i.hasNext()){
 // i.next() // it return Obects type 
@@ -91,9 +78,72 @@ while(i.hasNext()){
   }
   System.out.println();
 }
-System.out.println("\t\tOrder Finished .....\n\t\tThank you :) "+name);
+
+buy();
 // END OF ORDER 
 }
+
+static void  buy(){
+System.out.println("Enter ` -1 ` anytime not to buy ");
+Scanner sc= new Scanner(System.in);
+System.out.print("Enter your name : ");
+String name =sc.nextLine();
+
+Product node=null;
+String Pname =null;
+int no;
+
+System.out.print("Enter Product name you want to buy : "); 
+Pname =sc.nextLine();
+if(Pname=="-1") return;
+node=avail(Pname);
+
+while(node==null){
+ System.out.print(Pname+" Not in Stock..! \tEnter Product name : "); 
+ Pname =sc.nextLine();
+ if(Pname=="-1") return;
+ node=avail(Pname);
+ }  
+
+ System.out.print("Enter number of product you want to buy : ");
+ no= sc.nextInt();sc.nextLine(); 
+  if(no==-1) return;
+ while(no>node.quanties || no<0){
+  System.out.print("Product quantity must be less than or equalsto "+node.quanties+" : ");
+  no= sc.nextInt();sc.nextLine(); 
+  if(no == -1) return; 
+} 
+
+int price=node.price;
+System.out.println("You are buying "+no+" "+Pname+"  at "+price);
+System.out.print("Enter any Key to buy OR no for cancellation : ");
+if(sc.nextLine()=="no") return;
+
+if(no==node.quanties)
+  head.remove(node);
+else node.quanties=node.quanties-no;
+
+int amount=price*no;
+System.out.println("_______________________________");
+System.out.println("Thank you "+name+" for visiting Ecom \nYou bought ...."); 
+System.out.println("Product name :\t "+Pname+"\nQuantity :\t "+no+"\nPrice :\t"+price+"\nTotal amount :\t "+amount);
+System.out.println("_______________________________");
+}
+
+
+
+static Product avail(String name){
+  Iterator i= head.iterator();
+  while(i.hasNext()){
+    Product p=(Product)i.next();
+   if(p.product_name.equalsIgnoreCase(name))
+     return p;
+  }
+  return null;
+}
+
+
+// PRODUCT BUYING DONE 
 
 
 
@@ -187,22 +237,15 @@ System.out.println("``````````````````````````````````````````` ");
  }
     
     
-
-
-
-
 static void  History(){
 
   System.out.println("History....!");
-  
+ 
   // HISTORY  
   }
   
 
-static void Customer(){
 
-  System.out.println("Details of customer ....!");
-}
 
 static void  sort(){
 
@@ -255,7 +298,7 @@ class Product
     {
       this.quanties= quanties;
       this.price= price;
-      this.product_name= product_name;;
+      this.product_name= product_name;
     }
 
 }
